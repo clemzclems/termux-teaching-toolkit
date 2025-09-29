@@ -50,6 +50,37 @@
     a:hover {
       color: #00ff88;
     }
+
+    /* Hero Banner */
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #0d0d0d, #1f1f1f);
+      color: #fff;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      color: #00ff88;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .hero .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background: #00ff88;
+      color: #121212;
+      font-weight: bold;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .hero .btn:hover {
+      background: #00cc6a;
+    }
+
     main {
       padding: 30px;
       max-width: 900px;
@@ -94,6 +125,9 @@
       li {
         margin: 10px 0;
       }
+      .hero h1 {
+        font-size: 2em;
+      }
     }
   </style>
 </head>
@@ -108,6 +142,13 @@
       </ul>
     </nav>
   </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to Termux Teaching Toolkit 🚀</h1>
+    <p>Learn, teach, and build directly on Android with Termux + GitHub.</p>
+    <a href="#get-started" class="btn">Get Started</a>
+  </section>
 
   <main>
     <div id="home" class="card">
@@ -140,7 +181,7 @@
       </ul>
     </div>
 
-    <div class="card">
+    <div id="get-started" class="card">
       <h2>📌 Get Started</h2>
       <p>Clone this repo in Termux:</p>
       <pre><code>git clone https://github.com/clemzclems/termux-teaching-toolkit.git</code></pre>
