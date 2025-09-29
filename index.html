@@ -49,11 +49,9 @@
       padding: 1rem;
       margin-top: 2rem;
     }
-    /* Hide elements that don’t match search */
     .hidden {
       display: none !important;
     }
-    /* Highlight style */
     mark {
       background: yellow;
       color: black;
@@ -110,16 +108,19 @@
 
     searchInput.addEventListener('input', function() {
       let query = this.value.toLowerCase();
+      let firstMatch = null;
 
       // Filter & highlight sections
       document.querySelectorAll('section').forEach(sec => {
         let text = sec.innerText.toLowerCase();
         if (text.includes(query) || query === "") {
           sec.classList.remove('hidden');
+          if (!firstMatch && query) {
+            firstMatch = sec; // remember the first visible section
+          }
         } else {
           sec.classList.add('hidden');
         }
-        // Highlight inside section headers and paragraphs
         sec.querySelectorAll('h2, p').forEach(el => highlightText(el, query));
       });
 
@@ -136,6 +137,11 @@
         }
         highlightText(link, query);
       });
+
+      // Auto-scroll to the first match
+      if (firstMatch) {
+        firstMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   </script>
 </body>
