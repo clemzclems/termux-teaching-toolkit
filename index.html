@@ -4,283 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Termux Teaching Toolkit</title>
-  <!-- AOS Animation Library -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    :root {
-      --bg: #121212;
-      --text: #e0e0e0;
-      --card: #1e1e1e;
-      --border: #333;
-      --accent: #00ff88;
-    }
-    body.light {
-      --bg: #f5f5f5;
-      --text: #121212;
-      --card: #fff;
-      --border: #ddd;
-      --accent: #007744;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
     body {
-      font-family: "Fira Code", monospace, Arial, sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.3s, color 0.3s;
+      line-height: 1.6;
     }
     header {
-      background: var(--card);
-      border-bottom: 2px solid var(--accent);
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav {
+      background: #222;
+      color: #fff;
+      padding: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1000px;
-      margin: auto;
     }
-    .logo {
-      color: var(--accent);
-      font-size: 1.2em;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    ul {
+    nav ul {
       list-style: none;
       display: flex;
+      gap: 1rem;
       margin: 0;
       padding: 0;
     }
-    li {
-      margin-left: 20px;
+    nav ul li {
+      display: inline;
     }
-    a {
-      color: var(--text);
+    nav ul li a {
+      color: #fff;
       text-decoration: none;
-      transition: 0.2s;
     }
-    a:hover {
-      color: var(--accent);
-    }
-
-    /* Toggle Button */
-    .toggle-btn {
-      cursor: pointer;
-      padding: 6px 12px;
-      border: 1px solid var(--accent);
+    .search-box input {
+      padding: 0.4rem;
       border-radius: 5px;
-      margin-left: 15px;
-      background: none;
-      color: var(--accent);
-      font-weight: bold;
-      transition: 0.2s;
+      border: none;
     }
-    .toggle-btn:hover {
-      background: var(--accent);
-      color: var(--bg);
-    }
-
-    /* Hero Banner */
-    .hero {
-      text-align: center;
-      padding: 100px 20px;
-      background: linear-gradient(135deg, var(--bg), var(--card));
-      color: var(--text);
-    }
-    .hero h1 {
-      font-size: 2.5em;
-      margin-bottom: 15px;
-      color: var(--accent);
-    }
-    .hero p {
-      font-size: 1.2em;
-      margin-bottom: 20px;
-    }
-    .hero .btn {
-      display: inline-block;
-      padding: 12px 25px;
-      background: var(--accent);
-      color: var(--bg);
-      font-weight: bold;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    .hero .btn:hover {
-      background: #00cc6a;
-    }
-
-    main {
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
-    }
-    .card {
-      background: var(--card);
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-      transition: background 0.3s, color 0.3s;
-    }
-    h2 {
-      color: var(--accent);
-    }
-    pre {
-      background: #000;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-      color: var(--accent);
+    section {
+      padding: 2rem;
     }
     footer {
+      background: #222;
+      color: #fff;
       text-align: center;
-      padding: 15px;
-      background: var(--card);
-      border-top: 2px solid var(--accent);
-      margin-top: 30px;
-      color: #aaa;
+      padding: 1rem;
+      margin-top: 2rem;
     }
-
-    /* Back to Top Button */
-    #backToTop {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      padding: 12px 18px;
-      border-radius: 50%;
-      font-size: 18px;
-      cursor: pointer;
+    /* Hide sections that don’t match search */
+    .hidden {
       display: none;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-      transition: 0.3s;
-      z-index: 1001;
-    }
-    #backToTop:hover {
-      background: #00cc6a;
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      ul {
-        flex-direction: column;
-        width: 100%;
-      }
-      li {
-        margin: 10px 0;
-      }
-      .hero h1 {
-        font-size: 2em;
-      }
     }
   </style>
 </head>
 <body>
   <header>
+    <h1>Termux Teaching Toolkit</h1>
     <nav>
-      <a href="#home" class="logo">📚 Termux Toolkit</a>
-      <div style="display:flex;align-items:center;">
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="toggle-btn" id="themeToggle">🌙</button>
-      </div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Search sections...">
+    </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero" data-aos="fade-down">
-    <h1>Welcome to Termux Teaching Toolkit 🚀</h1>
-    <p>Learn, teach, and build directly on Android with Termux + GitHub.</p>
-    <a href="#get-started" class="btn">Get Started</a>
+  <section id="home">
+    <h2>Home</h2>
+    <p>Welcome to the Termux Teaching Toolkit website! 🚀</p>
   </section>
 
-  <main>
-    <div id="home" class="card" data-aos="fade-up">
-      <h2>👋 Welcome</h2>
-      <p>This project is designed to help you teach and learn using Termux on Android.
-      It contains tools, scripts, and examples for coding and automation.</p>
-    </div>
+  <section id="about">
+    <h2>About</h2>
+    <p>This project helps you learn, practice, and teach with Termux.</p>
+  </section>
 
-    <div id="about" class="card" data-aos="zoom-in">
-      <h2>ℹ️ About</h2>
-      <p>The <strong>Termux Teaching Toolkit</strong> is built for educators, students, and developers who want to learn programming directly on Android.</p>
-    </div>
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Reach out via GitHub or email for support and collaboration.</p>
+  </section>
 
-    <div class="card" data-aos="fade-right">
-      <h2>🚀 Features</h2>
-      <ul>
-        <li>⚡ Easy setup in Termux</li>
-        <li>📂 Pre-configured teaching scripts</li>
-        <li>🌍 GitHub integration</li>
-        <li>➕ Expandable for your own lessons</li>
-      </ul>
-    </div>
-
-    <div id="contact" class="card" data-aos="fade-left">
-      <h2>📩 Contact</h2>
-      <p>Want to collaborate? Reach me at:</p>
-      <ul>
-        <li>Email: <a href="mailto:drclem8@gmail.com">drclem8@gmail.com</a></li>
-        <li>GitHub: <a href="https://github.com/clemzclems" target="_blank">github.com/clemzclems</a></li>
-      </ul>
-    </div>
-
-    <div id="get-started" class="card" data-aos="fade-up">
-      <h2>📌 Get Started</h2>
-      <p>Clone this repo in Termux:</p>
-      <pre><code>git clone https://github.com/clemzclems/termux-teaching-toolkit.git</code></pre>
-    </div>
-  </main>
-
-  <footer data-aos="fade-up">
-    <p>Made with ❤️ by <a href="https://github.com/clemzclems">ClemzClems</a> | Powered by GitHub Pages</p>
+  <footer>
+    <p>&copy; 2025 Termux Teaching Toolkit</p>
   </footer>
 
-  <!-- Back to Top Button -->
-  <button id="backToTop">⬆️</button>
-
-  <!-- AOS Script -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({ duration: 1000, once: true });
-
-    // Theme Toggle
-    const toggleBtn = document.getElementById("themeToggle");
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light");
-      toggleBtn.textContent = document.body.classList.contains("light") ? "🌙" : "☀️";
-    });
-
-    // Back to Top Button
-    const backToTop = document.getElementById("backToTop");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        backToTop.style.display = "block";
-      } else {
-        backToTop.style.display = "none";
-      }
-    });
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    // Simple search filter for sections
+    document.getElementById('search').addEventListener('input', function() {
+      let query = this.value.toLowerCase();
+      document.querySelectorAll('section').forEach(sec => {
+        let text = sec.innerText.toLowerCase();
+        if (text.includes(query)) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
     });
   </script>
 </body>
