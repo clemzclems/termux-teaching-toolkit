@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ school }} – Report Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @page { size: A4; margin: 12mm; }
+    :root { --ink:#000; --grid:#000; --muted:#555; }
+    body { font-family: Arial, sans-serif; color:var(--ink); background:#fff; }
+    .wrap { border:1px solid var(--grid); padding:14px; }
+    .header table { width:100%; border-collapse:collapse; }
+    .school { font-weight:800; font-size:20px; text-transform:uppercase; text-align:center; }
+    .sub { font-size:12px; color:var(--muted); text-align:center; }
+    .mt8{margin-top:8px} .mt12{margin-top:12px}
+    table { width:100%; border-collapse:collapse; }
+    th,td { border:1px solid var(--grid); padding:6px; font-size:12.5px; }
+    th { background:#f4f4f4; }
+    td.l { text-align:left; }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .nobr { border:none !important; }
+    @media print {.noprint{display:none}}
+    .noprint{margin-bottom:8px}
+    .btn { background:#0b1a4a; color:#fff; padding:6px 10px; border-radius:4px; text-decoration:none; }
+    .sign { height:40px; margin-top:6px; }
+    .passport { height:72px; border:1px solid var(--grid); }
+  </style>
+</head>
+<body>
+<div class="noprint"><a class="btn" onclick="window.print()">Print</a></div>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <div class="header">
+    <table class="nobr">
+      <tr class="nobr">
+        <td class="nobr" style="width:85px">
+          <img src="{{ url_for('static', filename='logo.svg') }}" alt="Logo" style="height:72px" />
+        </td>
+        <td class="nobr">
+          <div class="school">{{ school }}</div>
+          <div class="sub">Government Approved</div>
+          <div class="sub">INDIVIDUAL STUDENT'S ASSESSMENT RESULT SHEET</div>
+        </td>
+        <td class="nobr" style="width:85px">
+          <img src="{{ url_for('static', filename=student_passport) }}" alt="Passport" class="passport" />
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Student / session info -->
+  <table class="mt8">
+    <tr>
+      <td class="l">NAME OF STUDENT: <b>{{ name }}</b></td>
+      <td class="l">CLASS: {{ class_name }}</td>
+    </tr>
+    <tr>
+      <td class="l">TERM: {{ term }}</td>
+      <td class="l">YEAR/SESSION: {{ session }}</td>
+    </tr>
+    <tr>
+      <td class="l">EXAM NO: {{ exam_no }}</td>
+      <td class="l">CENTRE: {{ centre }}</td>
+    </tr>
+    <tr>
+      <td class="l">POSITION: {{ position }}</td>
+      <td class="l">AVERAGE PERCENTAGE: {{ average_pct }}</td>
+    </tr>
+  </table>
+
+  <!-- Results table -->
+  <table class="mt12">
+    <thead>
+      <tr>
+        <th>SUBJECTS</th>
+        <th>CA (20%)</th>
+        <th>CA (20%)</th>
+        <th>EXAM (60%)</th>
+        <th>TOTAL (100%)</th>
+        <th>GRADE</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s, ca20, mid20, exam60, total, grade in rows %}
+      <tr>
+        <td class="l">{{ s }}</td>
+        <td>{{ ca20 }}</td>
+        <td>{{ mid20 }}</td>
+        <td>{{ exam60 }}</td>
+        <td>{{ total }}</td>
+        <td>{{ grade }}</td>
+      </tr>
+      {% endfor %}
+      {% if not rows %}
+      <tr><td colspan="6" class="l">No subjects found.</td></tr>
+      {% endif %}
+    </tbody>
+  </table>
+
+  <!-- Domains -->
+  <div class="grid2 mt12">
+    <table>
+      <thead><tr><th colspan="2">COGNITIVE DOMAIN</th></tr></thead>
+      <tbody>
+        {% for skill, rating in cognitive %}
+        <tr><td class="l">{{ skill }}</td><td>{{ rating }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <table>
+      <thead><tr><th colspan="2">PSYCHOMOTOR DOMAIN</th></tr></thead>
+      <tbody>
+        {% for skill, rating in psychomotor %}
+        <tr><td class="l">{{ skill }}</td><td>{{ rating }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <table class="mt12">
+    <thead><tr><th colspan="6">AFFECTIVE DOMAIN</th></tr></thead>
+    <tbody>
+      {% for item in affective_items %}
+      <tr>
+        <td class="l">{{ item }}</td>
+        <td>□</td><td>□</td><td>□</td><td>□</td><td>□</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Grade key + Attendance -->
+  <div class="grid2 mt12">
+    <table>
+      <thead><tr><th colspan="2">KEY TO GRADE</th></tr></thead>
+      <tbody>
+        {% for rng, desc in grading_scale %}
+        <tr><td style="width:80px">{{ rng }}</td><td class="l">{{ desc }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <table>
+      <thead><tr><th colspan="2">ATTENDANCE</th></tr></thead>
+      <tbody>
+        <tr><td class="l">Times School Opened</td><td>{{ times_open }}</td></tr>
+        <tr><td class="l">Times Present</td><td>{{ attendance }}</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer fields -->
+  <table class="mt12">
+    <tr>
+      <td class="l">Next Term Begins: ____________________</td>
+      <td class="l">Levy (Name & Amount): ____________________________________</td>
+    </tr>
+    <tr>
+      <td class="l" colspan="2">Next Term Fees: _______________________________________________</td>
+    </tr>
+  </table>
+
+  <!-- Comments + Signatures -->
+  <table class="mt12">
+    <tr>
+      <td class="l">Class Teacher’s Comments: {{ teacher_comment }}</td>
+    </tr>
+    <tr>
+      <td><img src="{{ url_for('static', filename='teacher_sign.png') }}" class="sign" alt="Teacher Sign" /></td>
+    </tr>
+    <tr>
+      <td class="l">Principal’s Comments: {{ principal_comment }}</td>
+    </tr>
+    <tr>
+      <td><img src="{{ url_for('static', filename='principal_sign.png') }}" class="sign" alt="Principal Sign" /></td>
+    </tr>
+  </table>
+
+</div>
+</body>
+</html>
