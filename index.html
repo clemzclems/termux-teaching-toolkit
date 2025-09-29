@@ -14,17 +14,45 @@
     }
     header {
       background: #1f1f1f;
-      color: #00ff88;
-      padding: 20px;
-      text-align: center;
       border-bottom: 2px solid #00ff88;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    h1 {
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .logo {
+      color: #00ff88;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    ul {
+      list-style: none;
+      display: flex;
       margin: 0;
+      padding: 0;
+    }
+    li {
+      margin-left: 20px;
+    }
+    a {
+      color: #e0e0e0;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    a:hover {
+      color: #00ff88;
     }
     main {
       padding: 30px;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
     }
     .card {
@@ -38,9 +66,6 @@
     h2 {
       color: #00ff88;
     }
-    ul li {
-      margin: 8px 0;
-    }
     pre {
       background: #000;
       padding: 10px;
@@ -52,30 +77,50 @@
       text-align: center;
       padding: 15px;
       background: #1f1f1f;
-      color: #aaa;
-      margin-top: 30px;
       border-top: 2px solid #00ff88;
+      margin-top: 30px;
+      color: #aaa;
     }
-    a {
-      color: #00ff88;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      ul {
+        flex-direction: column;
+        width: 100%;
+      }
+      li {
+        margin: 10px 0;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📚 Termux Teaching Toolkit</h1>
-    <p>Learn, Code, and Explore with Termux</p>
+    <nav>
+      <a href="#" class="logo">📚 Termux Toolkit</a>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </header>
+
   <main>
-    <div class="card">
+    <div id="home" class="card">
       <h2>👋 Welcome</h2>
       <p>This project is designed to help you teach and learn using Termux on Android.
       It contains tools, scripts, and examples for coding and automation.</p>
     </div>
+
+    <div id="about" class="card">
+      <h2>ℹ️ About</h2>
+      <p>The <strong>Termux Teaching Toolkit</strong> is built for educators, students, and developers who want to learn programming directly on Android.</p>
+    </div>
+
     <div class="card">
       <h2>🚀 Features</h2>
       <ul>
@@ -85,12 +130,23 @@
         <li>➕ Expandable for your own lessons</li>
       </ul>
     </div>
+
+    <div id="contact" class="card">
+      <h2>📩 Contact</h2>
+      <p>Want to collaborate? Reach me at:</p>
+      <ul>
+        <li>Email: <a href="mailto:drclem8@gmail.com">drclem8@gmail.com</a></li>
+        <li>GitHub: <a href="https://github.com/clemzclems" target="_blank">github.com/clemzclems</a></li>
+      </ul>
+    </div>
+
     <div class="card">
       <h2>📌 Get Started</h2>
       <p>Clone this repo in Termux:</p>
       <pre><code>git clone https://github.com/clemzclems/termux-teaching-toolkit.git</code></pre>
     </div>
   </main>
+
   <footer>
     <p>Made with ❤️ by <a href="https://github.com/clemzclems">ClemzClems</a> | Powered by GitHub Pages</p>
   </footer>
