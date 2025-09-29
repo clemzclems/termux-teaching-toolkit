@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Termux Teaching Toolkit</title>
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
     body {
       font-family: "Fira Code", monospace, Arial, sans-serif;
       margin: 0;
@@ -134,7 +139,7 @@
 <body>
   <header>
     <nav>
-      <a href="#" class="logo">📚 Termux Toolkit</a>
+      <a href="#home" class="logo">📚 Termux Toolkit</a>
       <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -144,25 +149,25 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" data-aos="fade-down">
     <h1>Welcome to Termux Teaching Toolkit 🚀</h1>
     <p>Learn, teach, and build directly on Android with Termux + GitHub.</p>
     <a href="#get-started" class="btn">Get Started</a>
   </section>
 
   <main>
-    <div id="home" class="card">
+    <div id="home" class="card" data-aos="fade-up">
       <h2>👋 Welcome</h2>
       <p>This project is designed to help you teach and learn using Termux on Android.
       It contains tools, scripts, and examples for coding and automation.</p>
     </div>
 
-    <div id="about" class="card">
+    <div id="about" class="card" data-aos="zoom-in">
       <h2>ℹ️ About</h2>
       <p>The <strong>Termux Teaching Toolkit</strong> is built for educators, students, and developers who want to learn programming directly on Android.</p>
     </div>
 
-    <div class="card">
+    <div class="card" data-aos="fade-right">
       <h2>🚀 Features</h2>
       <ul>
         <li>⚡ Easy setup in Termux</li>
@@ -172,7 +177,7 @@
       </ul>
     </div>
 
-    <div id="contact" class="card">
+    <div id="contact" class="card" data-aos="fade-left">
       <h2>📩 Contact</h2>
       <p>Want to collaborate? Reach me at:</p>
       <ul>
@@ -181,15 +186,24 @@
       </ul>
     </div>
 
-    <div id="get-started" class="card">
+    <div id="get-started" class="card" data-aos="fade-up">
       <h2>📌 Get Started</h2>
       <p>Clone this repo in Termux:</p>
       <pre><code>git clone https://github.com/clemzclems/termux-teaching-toolkit.git</code></pre>
     </div>
   </main>
 
-  <footer>
+  <footer data-aos="fade-up">
     <p>Made with ❤️ by <a href="https://github.com/clemzclems">ClemzClems</a> | Powered by GitHub Pages</p>
   </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,  // animation duration in ms
+      once: true       // animate only once when scrolling down
+    });
+  </script>
 </body>
 </html>
