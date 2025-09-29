@@ -34,10 +34,33 @@
       color: #fff;
       text-decoration: none;
     }
+    .search-box {
+      position: relative;
+    }
     .search-box input {
       padding: 0.4rem;
       border-radius: 5px;
       border: none;
+    }
+    .suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-height: 150px;
+      overflow-y: auto;
+      display: none;
+      z-index: 10;
+    }
+    .suggestions div {
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+    .suggestions div:hover {
+      background: #f0f0f0;
     }
     section {
       padding: 2rem;
@@ -71,6 +94,7 @@
     </nav>
     <div class="search-box">
       <input type="text" id="search" placeholder="Search sections...">
+      <div class="suggestions" id="suggestions"></div>
     </div>
   </header>
 
@@ -95,11 +119,12 @@
 
   <script>
     const searchInput = document.getElementById('search');
+    const suggestionsBox = document.getElementById('suggestions');
 
     function highlightText(element, query) {
       const text = element.innerText;
       if (!query) {
-        element.innerHTML = text; // reset
+        element.innerHTML = text;
         return;
       }
       const regex = new RegExp(`(${query})`, 'gi');
@@ -109,6 +134,7 @@
     searchInput.addEventListener('input', function() {
       let query = this.value.toLowerCase();
       let firstMatch = null;
+      let suggestions = [];
 
       // Filter & highlight sections
       document.querySelectorAll('section').forEach(sec => {
@@ -116,7 +142,7 @@
         if (text.includes(query) || query === "") {
           sec.classList.remove('hidden');
           if (!firstMatch && query) {
-            firstMatch = sec; // remember the first visible section
+            firstMatch = sec;
           }
         } else {
           sec.classList.add('hidden');
@@ -124,7 +150,7 @@
         sec.querySelectorAll('h2, p').forEach(el => highlightText(el, query));
       });
 
-      // Filter & highlight menu items
+      // Filter & highlight menu items + build suggestions
       document.querySelectorAll('#menu li').forEach(item => {
         let link = item.querySelector('a');
         let text = link.innerText.toLowerCase();
@@ -132,15 +158,43 @@
 
         if (text.includes(query) || (target && !target.classList.contains('hidden'))) {
           item.classList.remove('hidden');
+          if (query && text.includes(query)) {
+            suggestions.push({ name: link.innerText, section: item.dataset.section });
+          }
         } else {
           item.classList.add('hidden');
         }
         highlightText(link, query);
       });
 
+      // Show suggestions dropdown
+      suggestionsBox.innerHTML = "";
+      if (suggestions.length > 0) {
+        suggestionsBox.style.display = "block";
+        suggestions.forEach(s => {
+          const div = document.createElement("div");
+          div.innerText = s.name;
+          div.onclick = () => {
+            document.getElementById(s.section).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            suggestionsBox.style.display = "none";
+            searchInput.value = s.name;
+          };
+          suggestionsBox.appendChild(div);
+        });
+      } else {
+        suggestionsBox.style.display = "none";
+      }
+
       // Auto-scroll to the first match
       if (firstMatch) {
         firstMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+        suggestionsBox.style.display = "none";
       }
     });
   </script>
