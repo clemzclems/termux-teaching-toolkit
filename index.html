@@ -53,6 +53,12 @@
     .hidden {
       display: none !important;
     }
+    /* Highlight style */
+    mark {
+      background: yellow;
+      color: black;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -90,11 +96,22 @@
   </footer>
 
   <script>
-    // Search filter for both sections and menu items
-    document.getElementById('search').addEventListener('input', function() {
+    const searchInput = document.getElementById('search');
+
+    function highlightText(element, query) {
+      const text = element.innerText;
+      if (!query) {
+        element.innerHTML = text; // reset
+        return;
+      }
+      const regex = new RegExp(`(${query})`, 'gi');
+      element.innerHTML = text.replace(regex, '<mark>$1</mark>');
+    }
+
+    searchInput.addEventListener('input', function() {
       let query = this.value.toLowerCase();
 
-      // Filter sections
+      // Filter & highlight sections
       document.querySelectorAll('section').forEach(sec => {
         let text = sec.innerText.toLowerCase();
         if (text.includes(query) || query === "") {
@@ -102,17 +119,22 @@
         } else {
           sec.classList.add('hidden');
         }
+        // Highlight inside section headers and paragraphs
+        sec.querySelectorAll('h2, p').forEach(el => highlightText(el, query));
       });
 
-      // Filter menu items
+      // Filter & highlight menu items
       document.querySelectorAll('#menu li').forEach(item => {
-        let text = item.innerText.toLowerCase();
+        let link = item.querySelector('a');
+        let text = link.innerText.toLowerCase();
         let target = document.getElementById(item.dataset.section);
+
         if (text.includes(query) || (target && !target.classList.contains('hidden'))) {
           item.classList.remove('hidden');
         } else {
           item.classList.add('hidden');
         }
+        highlightText(link, query);
       });
     });
   </script>
